@@ -1,0 +1,21 @@
+# Django
+Django>=5.0,<6.0
+djangorestframework>=3.14,<4.0
+django-cors-headers>=4.3,<5.0
+django-filter>=23.5,<24.0
+django-extensions>=3.2,<4.0
+django-debug-toolbar>=4.2,<5.0
+
+# Database
+psycopg2-binary>=2.9,<3.0
+
+# Python
+python-dotenv>=1.0,<2.0
+pytz>=2024.1
+ Pillow>=10.2,<11.0
+
+# Validation
+cerberus>=1.5,<2.0
+
+# Utils
+requests>=2.31,<3.0
