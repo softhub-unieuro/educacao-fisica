@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.env
+.env.local
+.manus-logs/
+.DS_Store
+*.log
+pnpm-lock.yaml
+package-lock.json
+.project-config.json
+template.json
+patches/
