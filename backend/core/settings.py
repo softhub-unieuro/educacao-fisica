@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     # Local apps
     'api',
+    'frontend',
 ]
 
 MIDDLEWARE = [

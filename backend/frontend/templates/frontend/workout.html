@@ -1,0 +1,81 @@
+{% extends 'frontend/base.html' %}
+{% block body_class %}beneficiary-page workout-page{% endblock %}
+{% block header %}{% endblock %}
+{% block main_class %}mobile-portal-shell{% endblock %}
+{% block content %}
+<section class="mobile-portal workout-portal" data-workout>
+  <div class="mobile-hero workout-mobile-hero">
+    <div class="mobile-brand-row">
+      <a class="mobile-unieuro-lockup" href="{% url 'frontend:role-selector' %}" aria-label="UniEuro — início">{% include 'frontend/partials/unieuro_logo.html' %}</a>
+    </div>
+    <div class="mobile-user-row">
+      <span class="avatar avatar-lg">JS</span>
+      <div class="mobile-user-copy"><span>Bem-vindo</span><strong>João Silva</strong><small>Campus Águas Claras</small></div>
+      <div class="mobile-actions">
+        <button class="round-action"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg></button>
+        <button class="round-action"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-8 0v2M12 11a4 4 0 1 0 0-8"/></svg></button>
+        <a class="round-action" href="{% url 'frontend:login' %}"><svg viewBox="0 0 24 24"><path d="M10 5H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h5M14 8l4 4-4 4M18 12H9"/></svg></a>
+      </div>
+    </div>
+    <div class="mobile-metrics">
+      <div><svg viewBox="0 0 24 24"><path d="M6 8h3M15 8h3M8 5v6M16 5v6M4 8h16"/></svg><strong>4</strong><span>Exercícios</span></div>
+      <div><svg viewBox="0 0 24 24"><path d="M3 12h4l2-6 4 12 2-6h6"/></svg><strong>85%</strong><span>Frequência</span></div>
+      <div><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 11c0 5.5-7 10-7 10Z"/></svg><strong>7.2</strong><span>Esforço médio</span></div>
+    </div>
+  </div>
+  <nav class="mobile-tabs"><a href="{% url 'frontend:beneficiary' %}">Resumo</a><a class="is-active" href="{% url 'frontend:workout' %}">Treino</a></nav>
+
+  <div class="timer-bar">
+    <span><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M9 2h6M12 5v2"/></svg>Tempo total</span>
+    <strong data-workout-time>00:00:00</strong>
+    <div class="timer-actions">
+      <button type="button" data-timer-toggle aria-label="Iniciar cronômetro"><svg viewBox="0 0 24 24"><path d="m9 6 9 6-9 6V6Z"/></svg></button>
+      <button type="button" data-timer-reset aria-label="Reiniciar cronômetro"><svg viewBox="0 0 24 24"><path d="M20 7v5h-5M19 12a7 7 0 1 1-2-5"/></svg></button>
+    </div>
+  </div>
+
+  <div class="workout-content">
+    <div class="progress-heading"><span>Progresso</span><strong><span data-completed-series>0</span>/12</strong></div>
+    <div class="progress-track"><span data-progress-fill></span></div>
+    <div class="exercise-tabs" role="tablist">
+      {% for exercise in exercises %}
+      <button type="button" class="{% if exercise.active %}is-active{% endif %}" data-exercise-tab="{{ exercise.index }}">Ex {{ exercise.index }}</button>
+      {% endfor %}
+    </div>
+
+    <article class="exercise-card" data-exercise-panel="1">
+      <div class="exercise-card-header">
+        <div><h1>Agachamento Livre</h1><p>Exercício 1 de 4</p></div>
+        <div class="rest-badge"><strong>1:30 desc.</strong><small><svg viewBox="0 0 24 24"><rect x="6" y="10" width="12" height="10" rx="2"/><path d="M9 10V7a3 3 0 0 1 6 0v3"/></svg>definido pelo Estagiário</small></div>
+      </div>
+      <div class="video-frame" role="img" aria-label="Vídeo demonstrativo de agachamento livre">
+        <div class="video-brand">Demonstração técnica</div>
+        <div class="video-figure" aria-hidden="true"><span></span><span></span><span></span></div>
+        <button type="button" class="video-play" data-toast="No produto final, este botão abre o vídeo do exercício cadastrado pelo estagiário." aria-label="Reproduzir vídeo"><svg viewBox="0 0 24 24"><path d="m9 6 9 6-9 6V6Z"/></svg></button>
+        <div class="video-caption">Agachamento com barra · execução controlada</div>
+      </div>
+      <div class="series-heading"><span>Série</span><span>Status</span></div>
+      <div class="series-list">
+        <label>Série 1 <input type="checkbox" data-series-check><span class="series-check"></span></label>
+        <label>Série 2 <input type="checkbox" data-series-check><span class="series-check"></span></label>
+        <label>Série 3 <input type="checkbox" data-series-check><span class="series-check"></span></label>
+      </div>
+    </article>
+
+    {% for exercise in exercises|slice:"1:" %}
+    <article class="exercise-card is-hidden" data-exercise-panel="{{ exercise.index }}">
+      <div class="exercise-card-header"><div><h1>{{ exercise.name }}</h1><p>Exercício {{ exercise.index }} de 4</p></div><div class="rest-badge"><strong>{{ exercise.rest }} desc.</strong><small>definido pelo Estagiário</small></div></div>
+      <div class="video-frame video-frame-compact"><div class="video-brand">Demonstração técnica</div><button type="button" class="video-play"><svg viewBox="0 0 24 24"><path d="m9 6 9 6-9 6V6Z"/></svg></button><div class="video-caption">{{ exercise.name }}</div></div>
+      <div class="series-heading"><span>Série</span><span>Status</span></div>
+      <div class="series-list">
+        <label>Série 1 <input type="checkbox" data-series-check><span class="series-check"></span></label>
+        <label>Série 2 <input type="checkbox" data-series-check><span class="series-check"></span></label>
+        <label>Série 3 <input type="checkbox" data-series-check><span class="series-check"></span></label>
+      </div>
+    </article>
+    {% endfor %}
+
+    <button class="button button-primary button-block next-exercise" type="button" data-next-exercise>Próximo Exercício</button>
+  </div>
+</section>
+{% endblock %}

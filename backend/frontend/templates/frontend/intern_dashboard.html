@@ -1,0 +1,45 @@
+{% extends 'frontend/base.html' %}
+{% block body_class %}dashboard-page intern-page{% endblock %}
+{% block content %}
+<section class="dashboard-shell">
+  <section class="dashboard-card feedback-card compact-top-feedback">
+    <div class="card-heading"><h2><svg viewBox="0 0 24 24"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v8Z"/></svg>Feedbacks pós-treino</h2><span class="count-badge">2</span></div>
+    <div class="feedback-list feedback-grid">{% for feedback in feedbacks %}<article class="feedback-item"><div><strong>{{ feedback.name }}</strong><small>{{ feedback.meta }}</small><p>{{ feedback.text }}</p></div><span class="status-badge status-{{ feedback.tone }}">{{ feedback.effort }}</span></article>{% endfor %}</div>
+  </section>
+
+  <div class="intern-builder-grid">
+    <aside class="beneficiary-sidebar">
+      <div class="sidebar-heading"><h1><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-8 0v2M12 11a4 4 0 1 0 0-8M19 8a3 3 0 0 1 0 6M21 21v-2a4 4 0 0 0-3-3.9"/></svg>Meus Beneficiários</h1><span class="count-badge">4</span></div>
+      <label class="sidebar-search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input type="search" placeholder="Buscar beneficiário..." data-beneficiary-search></label>
+      <div class="beneficiary-list">{% for beneficiary in beneficiaries %}<button class="beneficiary-item {% if forloop.first %}is-selected{% endif %}" type="button" data-beneficiary-item data-beneficiary-name="{{ beneficiary.name }}"><span class="avatar">{{ beneficiary.initials }}</span><span class="beneficiary-copy"><strong>{{ beneficiary.name }}</strong><small>{{ beneficiary.meta }}</small></span>{% if beneficiary.status %}<span class="status-badge status-{{ beneficiary.tone }}">{{ beneficiary.status }}</span>{% endif %}</button>{% endfor %}</div>
+      <section class="dashboard-card professor-evaluation-box"><h2><svg viewBox="0 0 24 24"><path d="m12 3 2.2 4.5 5 .7-3.6 3.5.9 5-4.5-2.4-4.5 2.4.9-5L4.8 8.2l5-.7L12 3Z"/></svg>Avaliações do Professor</h2><p>Nenhuma avaliação recebida ainda.</p></section>
+    </aside>
+
+    <section class="workout-builder" data-workout-builder>
+      <div class="builder-heading"><h1>Montagem de Treino</h1><p><span data-selected-beneficiary>João Silva</span> • Hipertrofia • 25 anos</p></div>
+      <div class="semaphore-title"><span class="traffic-dots"><i class="red"></i><i class="gold"></i><i class="green"></i></span><strong>Semáforo de Saúde</strong></div>
+      <div class="semaphore-stack compact-semaphore">
+        <article class="health-alert health-red"><div class="health-alert-title"><span>Bloqueio</span><small>Fisioterapia</small></div><p>Extensão de joelho com carga alta — lesão LCA</p></article>
+        <article class="health-alert health-gold"><div class="health-alert-title"><span>Sugerido: cuidado</span><small>Fisioterapia</small><em>Aguarda validação do Professor</em></div><p>Restrição articular no ombro direito relatada</p></article>
+        <article class="health-alert health-gold"><div class="health-alert-title"><span>Sugerido: cuidado</span><small>Nutrição</small><em>Aguarda validação do Professor</em></div><p>Baixo carboidrato — evitar treinos de alta intensidade</p></article>
+        <article class="health-alert health-green"><div class="health-alert-title"><span>Liberado</span><small>Nutrição</small></div><p>Hidratação adequada — liberado</p></article>
+        <article class="health-alert health-green"><div class="health-alert-title"><span>Liberado</span><small>Psicologia</small></div><p>Prontidão mental adequada para treinamento</p></article>
+      </div>
+      <div class="builder-note"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.4-3 8.4-7 10-4-1.6-7-5.6-7-10V6l7-3Z"/></svg><span><strong>Você não aprova o treino.</strong> Ao enviar, ele fica Pendente até o Professor liberar.</span></div>
+
+      <form class="builder-form" data-demo-builder>
+        <label>Nome do treino<input type="text" value="Treino — João Silva" data-training-name></label>
+        <div class="exercise-builder-list" data-exercise-builder-list>
+          <article class="exercise-builder-card" data-exercise-builder-card>
+            <div class="exercise-builder-label"><svg viewBox="0 0 24 24"><path d="m12 3 2.2 4.5 5 .7-3.6 3.5.9 5-4.5-2.4-4.5 2.4.9-5L4.8 8.2l5-.7L12 3Z"/></svg>Exercício <span data-exercise-number>1</span></div>
+            <label>Nome do exercício<input type="text" placeholder="Ex.: Supino reto"></label>
+            <div class="builder-form-row"><label>Séries<input type="number" min="1" max="10" value="3"></label><label>Descanso (min : seg)<span class="time-inputs"><input type="number" min="0" max="10" value="1"><b>:</b><input type="number" min="0" max="59" value="0"></span></label></div>
+            <label>Link do vídeo (YouTube)<input type="url" placeholder="https://www.youtube.com/watch?v=..."></label>
+          </article>
+        </div>
+        <div class="builder-actions"><button class="button button-secondary" type="button" data-add-exercise>＋ Adicionar exercício</button><button class="button button-gold" type="submit"><svg viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4 20-7Z"/><path d="M22 2 11 13"/></svg>Enviar para aprovação do Professor</button></div>
+      </form>
+    </section>
+  </div>
+</section>
+{% endblock %}

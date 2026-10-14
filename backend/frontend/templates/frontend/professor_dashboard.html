@@ -1,0 +1,44 @@
+{% extends 'frontend/base.html' %}
+{% block body_class %}dashboard-page professor-page{% endblock %}
+{% block content %}
+<section class="dashboard-shell">
+  <section class="approval-summary-grid">
+    <article class="summary-strip warning"><span class="summary-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div><strong>2</strong><span>Treinos pendentes</span></div></article>
+    <article class="summary-strip success"><span class="summary-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 2.5 2.5L16 9"/></svg></span><div><strong>1</strong><span>Aprovado</span></div></article>
+    <article class="summary-strip danger"><span class="summary-icon"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.4-3 8.4-7 10-4-1.6-7-5.6-7-10V6l7-3Z"/><path d="M12 8v5M12 16h.01"/></svg></span><div><strong>0</strong><span>Devolvidos</span></div></article>
+  </section>
+
+  <section class="dashboard-card approval-queue-card">
+    <div class="card-heading"><h2><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Fila de Aprovação de Treinos</h2><span>Revisão acadêmica</span></div>
+    <div class="responsive-table-wrap">
+      <table class="approval-table"><thead><tr><th>Estagiário</th><th>Beneficiário</th><th>Exercícios</th><th>Enviado</th><th>Status</th><th></th></tr></thead><tbody>
+      {% for item in approvals %}<tr><td><strong>{{ item.intern }}</strong></td><td>{{ item.beneficiary }}</td><td>{{ item.exercises }}</td><td>{{ item.sent }}</td><td><span class="status-badge status-{{ item.tone }}">{{ item.status }}</span></td><td><button class="button button-secondary button-small" data-toast="Abrindo revisão de {{ item.beneficiary }}."><svg viewBox="0 0 24 24"><path d="M2 12s4-6 10-6 10 6 10 6-4 6-10 6S2 12 2 12Z"/><circle cx="12" cy="12" r="2.5"/></svg>Revisar</button></td></tr>{% endfor %}
+      </tbody></table>
+    </div>
+  </section>
+
+  <div class="professor-main-grid">
+    <section class="dashboard-card semaphore-card" data-semaphore>
+      <div class="card-heading"><div><h2><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.4-3 8.4-7 10-4-1.6-7-5.6-7-10V6l7-3Z"/></svg>Validação do Semáforo — João Silva</h2><span>Confirme ou altere as sugestões geradas pelo sistema a partir da anamnese.</span></div></div>
+      <div class="semaphore-title"><span class="traffic-dots"><i class="red"></i><i class="gold"></i><i class="green"></i></span><strong>Semáforo de Saúde</strong></div>
+      <div class="semaphore-stack">
+        <article class="health-alert health-red"><div class="health-alert-title"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.4-3 8.4-7 10-4-1.6-7-5.6-7-10V6l7-3Z"/><path d="M12 8v5M12 16h.01"/></svg><span>Bloqueio</span><small>Fisioterapia</small></div><p>Extensão de joelho com carga alta — lesão LCA</p></article>
+        <article class="health-alert health-gold" data-health-alert><div class="health-alert-title"><svg viewBox="0 0 24 24"><path d="M12 4 3 20h18L12 4Z"/><path d="M12 9v5M12 17h.01"/></svg><span>Sugerido: cuidado</span><small>Fisioterapia</small><em>Aguarda validação do Professor</em></div><p>Restrição articular no ombro direito relatada</p><div class="alert-actions"><button type="button" class="button button-secondary button-small" data-semaphore-action="confirm">✓ Confirmar Amarelo</button><button type="button" class="button button-danger-outline button-small" data-semaphore-action="red">Alterar para Vermelho</button><button type="button" class="text-button" data-semaphore-action="discard">Descartar</button></div></article>
+        <article class="health-alert health-gold" data-health-alert><div class="health-alert-title"><svg viewBox="0 0 24 24"><path d="M12 4 3 20h18L12 4Z"/><path d="M12 9v5M12 17h.01"/></svg><span>Sugerido: cuidado</span><small>Nutrição</small><em>Aguarda validação do Professor</em></div><p>Baixo carboidrato — evitar treinos de alta intensidade</p><div class="alert-actions"><button type="button" class="button button-secondary button-small" data-semaphore-action="confirm">✓ Confirmar Amarelo</button><button type="button" class="button button-danger-outline button-small" data-semaphore-action="red">Alterar para Vermelho</button><button type="button" class="text-button" data-semaphore-action="discard">Descartar</button></div></article>
+        <article class="health-alert health-green"><div class="health-alert-title"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 2.5 2.5L16 9"/></svg><span>Liberado</span><small>Nutrição</small></div><p>Hidratação adequada — liberado</p></article>
+        <article class="health-alert health-green"><div class="health-alert-title"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 2.5 2.5L16 9"/></svg><span>Liberado</span><small>Psicologia</small></div><p>Prontidão mental adequada para treinamento</p></article>
+      </div>
+    </section>
+
+    <section class="dashboard-card feedback-card compact-feedback">
+      <div class="card-heading"><h2><svg viewBox="0 0 24 24"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v8Z"/></svg>Feedbacks pós-treino</h2><span class="count-badge">2</span></div>
+      <div class="feedback-list">{% for feedback in feedbacks %}<article class="feedback-item"><div><strong>{{ feedback.name }}</strong><small>{{ feedback.meta }}</small><p>{{ feedback.text }}</p></div><span class="status-badge status-{{ feedback.tone }}">{{ feedback.effort }}</span></article>{% endfor %}</div>
+    </section>
+  </div>
+
+  <section class="dashboard-card intern-evaluation-card">
+    <div class="card-heading"><h2><svg viewBox="0 0 24 24"><path d="m12 3 2.2 4.5 5 .7-3.6 3.5.9 5-4.5-2.4-4.5 2.4.9-5L4.8 8.2l5-.7L12 3Z"/></svg>Avaliação Contínua de Estagiários</h2><span>Desempenho formativo</span></div>
+    <div class="intern-list">{% for intern in interns %}<article class="intern-row"><span class="avatar">{{ intern.initials }}</span><div class="intern-copy"><strong>{{ intern.name }}</strong><small>{{ intern.meta }}</small>{% if intern.note %}<p>{{ intern.note }}</p>{% endif %}</div><div class="intern-score"><strong>{{ intern.score }}</strong><span>Média</span></div><button class="button button-secondary button-small" data-toast="Avaliação de {{ intern.name }} aberta.">Avaliar</button></article>{% endfor %}</div>
+  </section>
+</section>
+{% endblock %}

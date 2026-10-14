@@ -1,0 +1,51 @@
+{% extends 'frontend/base.html' %}
+{% block body_class %}auth-page selector-page{% endblock %}
+{% block header %}
+<header class="selector-header">
+  <a class="system-lockup" href="{% url 'frontend:role-selector' %}">
+    {% include 'frontend/partials/unieuro_logo.html' %}
+    <span class="system-divider" aria-hidden="true"></span>
+    <span class="system-name">EuroHealth 360</span>
+  </a>
+  <a class="button button-primary button-small" href="{% url 'frontend:login' %}">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 5H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h5M14 8l4 4-4 4M18 12H9"/></svg>
+    Entrar
+  </a>
+</header>
+{% endblock %}
+{% block main_class %}selector-shell{% endblock %}
+{% block content %}
+<section class="selector-hero" aria-labelledby="selector-title">
+  <div class="hero-brand-mark">{% include 'frontend/partials/brand_mark.html' %}</div>
+  <h1 id="selector-title">EuroHealth 360</h1>
+  <p class="hero-subtitle">Ecossistema de Saúde Integrada</p>
+  <p class="hero-instruction">Selecione um perfil para demonstração</p>
+
+  <div class="role-grid">
+    <a class="role-card" href="{% url 'frontend:coordinator' %}">
+      <span class="role-card-top"><span class="icon-box"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.4-3 8.4-7 10-4-1.6-7-5.6-7-10V6l7-3Z"/><path d="m9 12 2 2 4-4"/></svg></span><span class="device-tag">desktop</span></span>
+      <strong>Coordenador</strong>
+      <span>Acesso master a métricas, unidades e cursos</span>
+      <span class="card-link">Acessar <b>→</b></span>
+    </a>
+    <a class="role-card" href="{% url 'frontend:professor' %}">
+      <span class="role-card-top"><span class="icon-box"><svg viewBox="0 0 24 24"><path d="m3 9 9-5 9 5-9 5-9-5Z"/><path d="M7 11.5V16c2.7 2 7.3 2 10 0v-4.5"/></svg></span><span class="device-tag">desktop</span></span>
+      <strong>Professor</strong>
+      <span>Valida o Semáforo e libera treinos do Estagiário</span>
+      <span class="card-link">Acessar <b>→</b></span>
+    </a>
+    <a class="role-card" href="{% url 'frontend:intern' %}">
+      <span class="role-card-top"><span class="icon-box"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span><span class="device-tag">desktop</span></span>
+      <strong>Estagiário</strong>
+      <span>Monta treino e configura o tempo de descanso</span>
+      <span class="card-link">Acessar <b>→</b></span>
+    </a>
+    <a class="role-card" href="{% url 'frontend:beneficiary' %}">
+      <span class="role-card-top"><span class="icon-box"><svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M10 18h4"/></svg></span><span class="device-tag">mobile</span></span>
+      <strong>Beneficiário</strong>
+      <span>Executa o treino com visão simplificada</span>
+      <span class="card-link">Acessar <b>→</b></span>
+    </a>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'frontend/base.html' %}
+{% block body_class %}auth-page signup-page{% endblock %}
+{% block header %}{% endblock %}
+{% block main_class %}signup-shell{% endblock %}
+{% block content %}
+<div class="signup-brand">
+  <a class="system-lockup signup-system-lockup" href="{% url 'frontend:role-selector' %}">
+    {% include 'frontend/partials/unieuro_logo.html' %}
+    <span class="system-divider" aria-hidden="true"></span>
+    <span class="system-name">EuroHealth 360</span>
+  </a>
+</div>
+<form class="signup-card" data-demo-signup data-success-target="{% url 'frontend:anamnesis' 1 %}">
+  <h1>Criar cadastro</h1>
+  <p>Preencha seus dados para acessar o ecossistema UniEuro.</p>
+
+  <label for="full_name">Nome completo</label>
+  <input id="full_name" type="text" placeholder="Seu nome">
+  <label for="signup_email">E-mail</label>
+  <input id="signup_email" type="email" placeholder="voce@unieuro.edu.br">
+  <div class="form-row">
+    <div><label for="signup_password">Senha</label><input id="signup_password" type="password" placeholder="••••••••"></div>
+    <div><label for="confirm_password">Confirmar</label><input id="confirm_password" type="password" placeholder="••••••••"></div>
+  </div>
+
+  <fieldset class="signup-role-grid">
+    <legend>Perfil de acesso</legend>
+    <label class="signup-role-card"><input type="radio" name="signup_role" value="coordenador"><span class="signup-role-title"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.4-3 8.4-7 10-4-1.6-7-5.6-7-10V6l7-3Z"/></svg>Coordenador</span><small>Acesso master a todas as funcionalidades e métricas.</small></label>
+    <label class="signup-role-card"><input type="radio" name="signup_role" value="professor"><span class="signup-role-title"><svg viewBox="0 0 24 24"><path d="m3 9 9-5 9 5-9 5-9-5Z"/></svg>Professor</span><small>Valida o Semáforo e libera ou bloqueia treinos.</small></label>
+    <label class="signup-role-card"><input type="radio" name="signup_role" value="estagiario"><span class="signup-role-title"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-8 0v2M12 11a4 4 0 1 0 0-8"/></svg>Estagiário</span><small>Monta o treino do Beneficiário e configura o descanso.</small></label>
+    <label class="signup-role-card"><input type="radio" name="signup_role" value="beneficiario" checked><span class="signup-role-title"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-8 0v2M12 11a4 4 0 1 0 0-8"/></svg>Beneficiário</span><small>Executa o treino prescrito com visão simplificada.</small></label>
+  </fieldset>
+
+  <label class="checkbox-line"><input type="checkbox" required> <span>Li e aceito os termos de uso e a política de privacidade da UniEuro.</span></label>
+  <button class="button button-gold button-block" type="submit">Criar cadastro <span>→</span></button>
+  <p class="form-footer">Já tem conta? <a href="{% url 'frontend:login' %}">Entrar</a></p>
+</form>
+{% endblock %}

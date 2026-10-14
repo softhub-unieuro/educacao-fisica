@@ -1,0 +1,79 @@
+{% extends 'frontend/base.html' %}
+{% block body_class %}anamnesis-page{% endblock %}
+{% block header %}{% endblock %}
+{% block main_class %}anamnesis-shell{% endblock %}
+{% block content %}
+<header class="anamnesis-header">
+  <div class="anamnesis-brand-row">
+    <div class="anamnesis-institution">{% include 'frontend/partials/unieuro_logo.html' %}<span>Águas Claras</span></div>
+    <span class="anamnesis-divider" aria-hidden="true"></span>
+    <strong>Super Anamnese de Educação Física</strong>
+  </div>
+</header>
+
+<div class="anamnesis-content" data-anamnesis data-step="{{ step }}">
+  <nav class="stepper" aria-label="Etapas da anamnese">
+    {% for item in steps %}
+      {% if item < step %}
+      <a class="step completed" href="{% url 'frontend:anamnesis' item %}" aria-label="Etapa {{ item }} concluída"><svg viewBox="0 0 24 24"><path d="m6 12 4 4 8-8"/></svg></a>
+      {% elif item == step %}
+      <span class="step current" aria-current="step">
+        {% if item == 1 %}<svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-8 0v2M12 11a4 4 0 1 0 0-8"/></svg>{% endif %}
+        {% if item == 2 %}<svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 11c0 5.5-7 10-7 10Z"/><path d="M8 12h2l1-2 2 4 1-2h2"/></svg>{% endif %}
+        {% if item == 3 %}<svg viewBox="0 0 24 24"><path d="M3 12h4l2-6 4 12 2-6h6"/></svg>{% endif %}
+        {% if item == 4 %}<svg viewBox="0 0 24 24"><path d="M20 15A8 8 0 0 1 9 4a8 8 0 1 0 11 11Z"/></svg>{% endif %}
+        {% if item == 5 %}<svg viewBox="0 0 24 24"><path d="M12 5c-1.5-2-4-2-5 0-2 3-1 12 5 15 6-3 7-12 5-15-1-2-3.5-2-5 0Z"/><path d="M12 5c0-2 1-3 3-4"/></svg>{% endif %}
+      </span>
+      {% else %}
+      <span class="step pending" aria-label="Etapa {{ item }} pendente">
+        {% if item == 1 %}<svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-8 0v2M12 11a4 4 0 1 0 0-8"/></svg>{% endif %}
+        {% if item == 2 %}<svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 11c0 5.5-7 10-7 10Z"/></svg>{% endif %}
+        {% if item == 3 %}<svg viewBox="0 0 24 24"><path d="M3 12h4l2-6 4 12 2-6h6"/></svg>{% endif %}
+        {% if item == 4 %}<svg viewBox="0 0 24 24"><path d="M20 15A8 8 0 0 1 9 4a8 8 0 1 0 11 11Z"/></svg>{% endif %}
+        {% if item == 5 %}<svg viewBox="0 0 24 24"><path d="M12 5c-1.5-2-4-2-5 0-2 3-1 12 5 15 6-3 7-12 5-15-1-2-3.5-2-5 0Z"/></svg>{% endif %}
+      </span>
+      {% endif %}
+      {% if not forloop.last %}<span class="step-line {% if item < step %}completed{% endif %}"></span>{% endif %}
+    {% endfor %}
+  </nav>
+
+  <form class="anamnesis-card" data-anamnesis-form>
+    {% if step == 1 %}
+    <div class="anamnesis-title"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-8 0v2M12 11a4 4 0 1 0 0-8"/></svg><h1>1. Dados básicos</h1></div>
+    <div class="anamnesis-grid two-col">
+      <label>Idade<input name="age" type="number" value="25" min="12" max="100"></label>
+      <label>Peso (kg)<input name="weight" type="number" value="78" min="30" max="300" step="0.1"></label>
+      <label>Altura (cm)<input name="height" type="number" value="178" min="120" max="230"></label>
+      <label>Objetivo principal<select name="goal"><option selected>Hipertrofia</option><option>Emagrecimento</option><option>Condicionamento</option><option>Reabilitação funcional</option></select></label>
+    </div>
+    {% elif step == 2 %}
+    <div class="anamnesis-title"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 11c0 5.5-7 10-7 10Z"/><path d="M8 12h2l1-2 2 4 1-2h2"/></svg><h1>2. Histórico clínico</h1></div>
+    <div class="choice-section"><h2>Cirurgias prévias</h2><div class="choice-row" data-single-choice><button type="button" class="choice-chip is-selected">Nenhuma</button><button type="button" class="choice-chip">Joelho</button><button type="button" class="choice-chip">Ombro</button><button type="button" class="choice-chip">Coluna</button><button type="button" class="choice-chip">Abdômen</button><button type="button" class="choice-chip">Outros</button></div></div>
+    <div class="choice-section"><h2>Lesões relatadas</h2><div class="choice-row" data-multi-choice><button type="button" class="choice-chip">Nenhuma</button><button type="button" class="choice-chip is-selected">Joelho (LCA)</button><button type="button" class="choice-chip">Ombro</button><button type="button" class="choice-chip">Coluna lombar</button><button type="button" class="choice-chip">Punho</button><button type="button" class="choice-chip">Tornozelo</button><button type="button" class="choice-chip">Outros</button></div></div>
+    <div class="choice-section"><h2>Doenças crônicas</h2><div class="choice-row" data-single-choice><button type="button" class="choice-chip is-selected">Nenhuma</button><button type="button" class="choice-chip">Hipertensão</button><button type="button" class="choice-chip">Diabetes</button><button type="button" class="choice-chip">Asma</button><button type="button" class="choice-chip">Cardiopatia</button><button type="button" class="choice-chip">Outros</button></div></div>
+    <div class="choice-section"><h2>Medicamentos em uso</h2><div class="choice-row" data-multi-choice><button type="button" class="choice-chip is-selected">Nenhum</button><button type="button" class="choice-chip">Anti-hipertensivo</button><button type="button" class="choice-chip">Insulina</button><button type="button" class="choice-chip">Ansiolítico</button><button type="button" class="choice-chip">Anti-inflamatório</button><button type="button" class="choice-chip">Outros</button></div></div>
+    {% elif step == 3 %}
+    <div class="anamnesis-title"><svg viewBox="0 0 24 24"><path d="M3 12h4l2-6 4 12 2-6h6"/></svg><h1>3. Dores atuais</h1></div>
+    <div class="choice-section"><h2>Dores ou desconfortos atuais</h2><div class="choice-row" data-multi-choice><button type="button" class="choice-chip">Nenhuma</button><button type="button" class="choice-chip is-selected">Ombro direito</button><button type="button" class="choice-chip">Ombro esquerdo</button><button type="button" class="choice-chip">Joelho</button><button type="button" class="choice-chip">Lombar</button><button type="button" class="choice-chip">Cervical</button><button type="button" class="choice-chip">Punho</button><button type="button" class="choice-chip">Outros</button></div></div>
+    {% elif step == 4 %}
+    <div class="anamnesis-title"><svg viewBox="0 0 24 24"><path d="M20 15A8 8 0 0 1 9 4a8 8 0 1 0 11 11Z"/></svg><h1>4. Estilo de vida</h1></div>
+    <div class="anamnesis-grid two-col lifestyle-grid">
+      <label>Horas de sono / noite<input name="sleep" type="number" value="7" min="0" max="14" step="0.5"></label>
+      <label class="range-field"><span>Nível de estresse: <b data-range-output="stress">4/10</b></span><input name="stress" type="range" min="0" max="10" value="4" data-range="stress"></label>
+    </div>
+    <div class="choice-section"><h2>Consumo de álcool</h2><div class="choice-row" data-single-choice><button type="button" class="choice-chip">Nunca</button><button type="button" class="choice-chip is-selected">Social</button><button type="button" class="choice-chip">Frequente</button></div></div>
+    <label class="checkbox-line standalone"><input type="checkbox" name="smoker"><span>Sou tabagista</span></label>
+    {% elif step == 5 %}
+    <div class="anamnesis-title"><svg viewBox="0 0 24 24"><path d="M12 5c-1.5-2-4-2-5 0-2 3-1 12 5 15 6-3 7-12 5-15-1-2-3.5-2-5 0Z"/><path d="M12 5c0-2 1-3 3-4"/></svg><h1>5. Nutrição e Psicológico</h1></div>
+    <div class="anamnesis-grid two-col"><label>Refeições por dia<input type="number" value="4" min="1" max="10"></label><label>Humor predominante<select><option selected>Bom</option><option>Neutro</option><option>Baixo</option><option>Oscilante</option></select></label></div>
+    <label class="range-field range-field-full"><span>Nível de ansiedade: <b data-range-output="anxiety">3/10</b></span><input type="range" min="0" max="10" value="3" data-range="anxiety"></label>
+    <label>Observações (opcional)<textarea rows="5" placeholder="Informe algo que possa ajudar a equipe multidisciplinar."></textarea></label>
+    {% endif %}
+
+    <div class="anamnesis-actions">
+      {% if step == 1 %}<a class="button button-secondary is-disabled" aria-disabled="true">‹ Voltar</a>{% else %}<a class="button button-secondary" href="{% url 'frontend:anamnesis' step|add:'-1' %}">‹ Voltar</a>{% endif %}
+      {% if step < 5 %}<a class="button button-primary" href="{% url 'frontend:anamnesis' step|add:'1' %}" data-save-anamnesis>Avançar ›</a>{% else %}<a class="button button-primary" href="{% url 'frontend:beneficiary' %}" data-save-anamnesis data-complete-anamnesis>Concluir Anamnese ›</a>{% endif %}
+    </div>
+  </form>
+</div>
+{% endblock %}

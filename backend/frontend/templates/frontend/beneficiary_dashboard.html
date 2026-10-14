@@ -1,0 +1,63 @@
+{% extends 'frontend/base.html' %}
+{% block body_class %}beneficiary-page{% endblock %}
+{% block header %}{% endblock %}
+{% block main_class %}mobile-portal-shell{% endblock %}
+{% block content %}
+<section class="mobile-portal" aria-label="Painel do beneficiário">
+  <div class="mobile-hero">
+    <div class="mobile-brand-row">
+      <a class="mobile-unieuro-lockup" href="{% url 'frontend:role-selector' %}" aria-label="UniEuro — início">{% include 'frontend/partials/unieuro_logo.html' %}</a>
+    </div>
+    <div class="mobile-user-row">
+      <span class="avatar avatar-lg">JS</span>
+      <div class="mobile-user-copy">
+        <span>Bem-vindo</span>
+        <strong>João Silva</strong>
+        <small>Campus Águas Claras</small>
+      </div>
+      <div class="mobile-actions">
+        <button class="round-action" aria-label="Notificações"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg></button>
+        <button class="round-action" aria-label="Perfil"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-8 0v2M12 11a4 4 0 1 0 0-8"/></svg></button>
+        <a class="round-action" href="{% url 'frontend:login' %}" aria-label="Sair"><svg viewBox="0 0 24 24"><path d="M10 5H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h5M14 8l4 4-4 4M18 12H9"/></svg></a>
+      </div>
+    </div>
+    <div class="mobile-metrics">
+      <div><svg viewBox="0 0 24 24"><path d="M6 8h3M15 8h3M8 5v6M16 5v6M4 8h16"/></svg><strong>4</strong><span>Exercícios</span></div>
+      <div><svg viewBox="0 0 24 24"><path d="M3 12h4l2-6 4 12 2-6h6"/></svg><strong>85%</strong><span>Frequência</span></div>
+      <div><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 11c0 5.5-7 10-7 10Z"/></svg><strong>7.2</strong><span>Esforço médio</span></div>
+    </div>
+  </div>
+
+  <nav class="mobile-tabs" aria-label="Navegação do beneficiário">
+    <a class="is-active" href="{% url 'frontend:beneficiary' %}">Resumo</a>
+    <a href="{% url 'frontend:workout' %}">Treino</a>
+  </nav>
+
+  <div class="mobile-content-stack">
+    <article class="surface-card approved-workout-card">
+      <div>
+        <span class="eyebrow">Treino aprovado</span>
+        <h1>Treino A — Hipertrofia</h1>
+        <p>4 exercícios</p>
+        <span class="status-badge status-green">✓ Liberado pelo Professor</span>
+      </div>
+      <a class="button button-gold" href="{% url 'frontend:workout' %}"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m10 8 6 4-6 4V8Z"/></svg>Iniciar</a>
+    </article>
+
+    <article class="surface-card checkin-card">
+      <span class="icon-box"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 11-8 11S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
+      <div><h2>Check-in de Presença</h2><p>Academia Escola — Águas Claras</p></div>
+      <button class="button button-gold" type="button" data-toast="Check-in registrado para demonstração.">Check-in</button>
+    </article>
+
+    <article class="surface-card guidance-card">
+      <h2>Orientações do dia</h2>
+      <ul>
+        <li>Mantenha uma boa hidratação antes e durante o treino.</li>
+        <li>Respeite o tempo de descanso indicado em cada exercício.</li>
+        <li>Registre no feedback qualquer desconforto ao final do treino.</li>
+      </ul>
+    </article>
+  </div>
+</section>
+{% endblock %}
